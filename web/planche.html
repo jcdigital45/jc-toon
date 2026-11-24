@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><title>JC Toon — planche des personnages</title>
+<style>html,body{margin:0;background:#efe6d6}canvas{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+import { dessinerPersonnage, LARG, HAUT } from "./personnages.js";
+import { TROUPE } from "./troupe.js";
+const ech = 0.5, colW = LARG * ech, rowH = HAUT * ech + 100;
+const noms = Object.keys(TROUPE), poses = {
+  moussa: { brasG: "menton", visage: "doute" }, awa: { brasG: "porte", brasD: "porte", visage: "rire" },
+  ibrahim: { brasG: "hanches", brasD: "hanches", visage: "fier" }, fatou: { brasG: "tient", brasD: "salut", visage: "sourire", anim: 3 },
+  koffi: { brasG: "repos", visage: "decide" }, serge: { brasG: "pouce", brasD: "tient", visage: "malin", regard: [0.5, 0] },
+  amina: { brasG: "tient", brasD: "leve", visage: "surpris" }, junior: { brasG: "croise", brasD: "croise", visage: "colere" },
+  sergent: { brasG: "repos", visage: "decide", regard: [-0.4, 0] }, ngono: { brasG: "montre", brasD: "hanches", visage: "colere" },
+};
+const exprs = ["neutre", "sourire", "rire", "surpris", "choque", "triste", "colere", "peur", "malin", "dort", "decide", "doute", "fier", "pleure"];
+const cv = document.getElementById("c"), cols = 5, headCols = 7, headW = 220;
+cv.width = cols * colW + 40; cv.height = 2 * rowH + 2 * 300 + 120;
+const ctx = cv.getContext("2d");
+ctx.fillStyle = "#efe6d6"; ctx.fillRect(0, 0, cv.width, cv.height);
+ctx.fillStyle = "#1e130f"; ctx.font = "bold 44px DejaVu Sans, sans-serif"; ctx.fillText("JC Toon — la troupe", 30, 56);
+noms.forEach((n, i) => {
+  const x = 20 + (i % cols) * colW, y = 70 + Math.floor(i / cols) * rowH;
+  ctx.save(); ctx.translate(x, y); ctx.scale(ech, ech); dessinerPersonnage(ctx, TROUPE[n], poses[n] || {}); ctx.restore();
+  ctx.fillStyle = "#1e130f"; ctx.textAlign = "center"; ctx.font = "bold 26px DejaVu Sans, sans-serif"; ctx.fillText(TROUPE[n].nom, x + colW / 2, y + HAUT * ech + 30);
+  ctx.font = "20px DejaVu Sans, sans-serif"; ctx.fillText(TROUPE[n].role, x + colW / 2, y + HAUT * ech + 56); ctx.textAlign = "left";
+});
+const y0 = 70 + 2 * rowH + 20;
+ctx.font = "bold 30px DejaVu Sans, sans-serif"; ctx.fillText("Expressions", 30, y0);
+exprs.forEach((e, i) => {
+  const x = 30 + (i % headCols) * (headW + 2), y = y0 + 10 + Math.floor(i / headCols) * 290;
+  ctx.save(); ctx.beginPath(); ctx.rect(x, y, headW, 250); ctx.clip();
+  ctx.translate(x - 150 * 0.7 + 10, y - 20); ctx.scale(0.7, 0.7); dessinerPersonnage(ctx, TROUPE.serge, { visage: e }); ctx.restore();
+  ctx.textAlign = "center"; ctx.font = "22px DejaVu Sans, sans-serif"; ctx.fillText(e, x + headW / 2, y + 276); ctx.textAlign = "left";
+});
+window.done = true;
+</script></body></html>
