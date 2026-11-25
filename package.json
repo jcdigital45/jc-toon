@@ -1,16 +1,13 @@
 {
   "name": "jc-toon",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "description": "JC Toon : courts dessins animés 3D en français (JC Digital)",
+  "main": "rendu.mjs",
+  "author": "JC Digital",
+  "license": "MIT",
   "dependencies": {
     "playwright-core": "^1.63.0",
     "three": "^0.160.0"
-  }
+  },
+  "type": "module"
 }
