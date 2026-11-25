@@ -153,8 +153,8 @@ export const VISAGES = {
   pleure: { s: [18, 6], p: 0.3, b: "triste", larmes: true },
 };
 
-function visage(ctx, sk, def, expr, regard, cote) {
-  const v = VISAGES[expr] || VISAGES.neutre, cx = sk.cxTete, cy = sk.cyTete, [w, h] = sk.tete;
+function visage(ctx, sk, def, expr, regard, cote, ferme) {
+  const v0 = VISAGES[expr] || VISAGES.neutre, v = ferme && !v0.yeuxRieurs ? { ...v0, p: 1, clin: false } : v0, cx = sk.cxTete, cy = sk.cyTete, [w, h] = sk.tete;
   const ey = cy + h * 0.02, ecart = w * 0.19, ew = w * 0.1, eh = h * 0.12, peau = def.peau;
   const [rx, ry] = regard || [0, 0];
   for (const s of [-1, 1]) {
@@ -436,7 +436,7 @@ export function dessinerPersonnage(ctx, def, pose = {}) {
   forme(ctx, cheminTete(sk.cxTete, sk.cyTete, sk.tete[0], sk.tete[1]), def.peau, { cote, decal: 20, teinteOmbre: "rgba(50,20,70,0.26)" });
   barbe(ctx, sk, def);
   cheveuxAvant(ctx, sk, def);
-  visage(ctx, sk, def, pose.visage || "neutre", pose.regard, cote);
+  visage(ctx, sk, def, pose.visage || "neutre", pose.regard, cote, pose.cligne);
   moustache(ctx, sk, def);
   coiffe(ctx, sk, def, cote);
   chargeSurTete(ctx, sk, def);
