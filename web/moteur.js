@@ -19,7 +19,7 @@ export const scene = new THREE.Scene();
 export const cam = new THREE.PerspectiveCamera(40, L / H, 0.1, 2000);
 
 // ---------- matériaux toon ----------
-const degrade = (() => { const d = new Uint8Array([90, 180, 255]); const t = new THREE.DataTexture(d, 3, 1, THREE.RedFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
+const degrade = (() => { const d = new Uint8Array([150, 205, 255]); const t = new THREE.DataTexture(d, 3, 1, THREE.RedFormat); t.minFilter = t.magFilter = THREE.NearestFilter; t.needsUpdate = true; return t; })();
 const cacheTex = new Map();
 export function texture(toile, cle) {
   if (cle && cacheTex.has(cle)) return cacheTex.get(cle);
@@ -87,7 +87,7 @@ const ambiance = new THREE.HemisphereLight("#bcd3ff", "#8a5a3a", 0.9); scene.add
 
 // Préréglages de lumière. az / el en degrés ; teinteCarte = couleur appliquée aux personnages.
 export const LUMIERES = {
-  jour: { az: 130, el: 52, soleil: ["#fff3dc", 2.3], ciel: ["#3f86d8", "#86b6ea", "#cfe3f4"], amb: ["#bcd3ff", "#9a6a46", 1.0], brume: [40, 420], carte: "#ffffff", sat: 1.08, gain: [1, 1, 1], lift: [0.0, 0.005, 0.02], tailleSoleil: 0.0 },
+  jour: { az: 35, el: 50, soleil: ["#fff3dc", 2.3], ciel: ["#3f86d8", "#86b6ea", "#cfe3f4"], amb: ["#bcd3ff", "#9a6a46", 1.0], brume: [40, 420], carte: "#ffffff", sat: 1.08, gain: [1, 1, 1], lift: [0.0, 0.005, 0.02], tailleSoleil: 0.0 },
   dore: { az: 200, el: 9, soleil: ["#ffb46a", 2.6], ciel: ["#6f74b8", "#e8a07a", "#ffd08a"], amb: ["#7d7ac8", "#8a5a3a", 0.85], brume: [35, 360], carte: "#ffe2c4", sat: 1.12, gain: [1.04, 0.98, 0.92], lift: [0.02, 0.0, 0.035], tailleSoleil: 0.012 },
   nuit: { az: 60, el: 35, soleil: ["#9fb8ff", 0.9], ciel: ["#0d1840", "#22356e", "#3d5594"], amb: ["#3a4c99", "#1d1a33", 0.9], brume: [30, 300], carte: "#a9b8ff", sat: 0.9, gain: [0.8, 0.86, 1.05], lift: [0.0, 0.01, 0.05], tailleSoleil: 0.0 },
   aube: { az: 95, el: 14, soleil: ["#ffd2a8", 1.9], ciel: ["#7aa0d6", "#f0b8a8", "#ffe4c4"], amb: ["#a8b8ee", "#8a6a5a", 0.95], brume: [40, 380], carte: "#fff0e4", sat: 1.05, gain: [1.02, 1, 0.97], lift: [0.01, 0.005, 0.03], tailleSoleil: 0.01 },
